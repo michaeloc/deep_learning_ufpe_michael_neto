@@ -6,7 +6,6 @@ import requests
 from urllib import request, error
 from requests.exceptions import HTTPError
 from tqdm import tqdm
-import urllib2
 
 path = "dbpedia/treinamento/*.csv"
 files = glob.glob(path)
@@ -41,15 +40,15 @@ for file in tqdm(files):
                     tuple = [entity, label_target, labels, abstract]
                     dataset.append(tuple)
                     print(tuple)
-                except urllib2.HTTPError as err:
+                except error.HTTPError as err:
                     if err.code == 404:
                         print('Error entity:{0}'.format(entity))
+                        colunas = ['entity', 'class_target', 'other_class', 'abstract']
+                        df = pd.DataFrame(dataset, columns=colunas)
+                        df.to_csv('file_output.csv')
                     else:
                         raise
-                except HTTPError:
-                    print('Error entity:{0}'.format(entity))
-                except error.HTTPError:
-                    print('Error entity:{0}'.format(entity))
+                    
         #break
 
 # gerando csv de saída...
