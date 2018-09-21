@@ -5,6 +5,7 @@ import pandas as pd
 import requests
 from urllib import request, error
 from requests.exceptions import HTTPError
+import urllib2
 
 path = "dbpedia/treinamento/*.csv"
 files = glob.glob(path)
@@ -39,11 +40,14 @@ for file in files:
                     tuple = [entity, label_target, labels, abstract]
                     dataset.append(tuple)
                     print(tuple)
+                except urllib2.HTTPError as err:
+                    if err.code == 404:
+                        print('Error entity:{0}'.format(entity))
+                    else:
+                        raise
                 except HTTPError:
-                    print('Error:{0}'.format(results))
                     print('Error entity:{0}'.format(entity))
                 except error.HTTPError:
-                    print('Error:{0}'.format(results))
                     print('Error entity:{0}'.format(entity))
         #break
 
