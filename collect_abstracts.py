@@ -2,6 +2,9 @@ import glob
 import csv
 from SPARQLWrapper import SPARQLWrapper, JSON
 import pandas as pd
+import requests
+from urllib import request, error
+from requests.exceptions import HTTPError
 
 path = "dbpedia/treinamento/*.csv"
 files = glob.glob(path)
@@ -24,17 +27,24 @@ for file in files:
                         "filter(langMatches(lang(?abstract),\"en\")) }"
 
                 # extrair o resumo para uma variável
-                sparql = SPARQLWrapper("http://dbpedia.org/sparql")
-                sparql.setQuery(query)
-                sparql.setReturnFormat(JSON)
-                results = sparql.query().convert()
-                for result in results["results"]["bindings"]:
-                    for key, value in result.items():
-                        abstract = (value['value'].replace("\n", ''))
-                # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
-                tuple = [entity, label_target, labels, abstract]
-                dataset.append(tuple)
-                print(tuple)
+                try:
+                    sparql = SPARQLWrapper("http://dbpedia.org/sparql")
+                    sparql.setQuery(query)
+                    sparql.setReturnFormat(JSON)
+                    results = sparql.query().convert()
+                    for result in results["results"]["bindings"]:
+                        for key, value in result.items():
+                            abstract = (value['value'].replace("\n", ''))
+                    # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
+                    tuple = [entity, label_target, labels, abstract]
+                    dataset.append(tuple)
+                    print(tuple)
+                except HTTPError:
+                    print('Error:{0}'.format(results))
+                    print('Error entity:{0}'.format(entity))
+                except error.HTTPError:
+                    print('Error:{0}'.format(results))
+                    print('Error entity:{0}'.format(entity))
         #break
 
 # gerando csv de saída...
