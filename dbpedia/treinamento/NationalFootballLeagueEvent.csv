@@ -1,0 +1,10 @@
+,entity,classes
+0,DBPEDIA_ID/Super_Bowl,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+1,DBPEDIA_ID/UFL_Championship_Game,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+2,DBPEDIA_ID/Pro_Bowl,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+3,DBPEDIA_ID/IAFL_College_Bowl,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+4,DBPEDIA_ID/AFC_Championship_Game,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+5,DBPEDIA_ID/Pro_Football_Hall_of_Fame_Game,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+6,DBPEDIA_ID/NFC_Championship_Game,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+7,DBPEDIA_ID/Chicago_College_All-Star_Game,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
+8,ArenaBowl,"SportsEvent,SocietalEvent,Event,NationalFootballLeagueEvent"
