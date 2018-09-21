@@ -5,12 +5,12 @@ import pandas as pd
 import requests
 from urllib import request, error
 from requests.exceptions import HTTPError
-
+from tqdm import tqdm
 path = "dbpedia/treinamento/*.csv"
 files = glob.glob(path)
 dataset = []
 
-for file in files:
+for file in tqdm(files):
     with open(file, encoding="utf8") as f:
         reader = csv.reader(f)
         for line in reader:
