@@ -43,9 +43,10 @@ for file in tqdm(files):
                     print(tuple)
                 except urllib2.HTTPError as err:
                     if err.code == 404:
-			colunas = ['entity', 'class_target', 'other_class', 'abstract']
-			df = pd.DataFrame(dataset, columns=colunas)
-			df.to_csv('file_output.csv')
+			            colunas = ['entity', 'class_target', 'other_class', 'abstract']
+			            df = pd.DataFrame(dataset, columns=colunas)
+			            df.to_csv('file_output.csv')
+                        print('Error')
                         print('Error entity:{0}'.format(entity))
                     else:
                         raise
