@@ -52,7 +52,7 @@ for file in tqdm(files):
                         else:
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.read_csv('file_output.csv')
-                            data_frame = np.concat([data_frame,data_frame2])
+                            data_frame = pd.concat([data_frame,data_frame2])
 
                         data_frame.to_csv('file_output.csv')
                         break
