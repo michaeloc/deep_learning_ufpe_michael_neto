@@ -18,7 +18,7 @@ for file in tqdm(files):
         reader = csv.reader(f)
         i = 1
         dataset = []
-        # time.sleep(5)
+        time.sleep(5)
         for line in reader:
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
