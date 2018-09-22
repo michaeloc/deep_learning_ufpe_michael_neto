@@ -16,7 +16,7 @@ data_frame = pd.DataFrame()
 for file in tqdm(files):
     with open(file, encoding="utf8") as f:
         reader = csv.reader(f)
-        i = 0
+        i = 1
         # time.sleep(5)
         for line in reader:
             if (line[1] != 'entity'):
@@ -44,8 +44,8 @@ for file in tqdm(files):
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
-                    print(len(dataset))
                     if(i % 200 == 0):
+                        print(len(dataset))
                         break
                     i+=1
                 except error.HTTPError as err:
