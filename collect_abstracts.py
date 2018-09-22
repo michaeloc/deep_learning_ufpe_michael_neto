@@ -44,17 +44,8 @@ for file in tqdm(files):
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
-                    print(dataset)
+                    print(len(dataset))
                     if(i % 200 == 0):
-                        colunas = ['entity', 'class_target', 'other_class', 'abstract']
-                        if len(data_frame) == 0:
-                            data_frame = pd.DataFrame(dataset, columns=colunas)
-                        else:
-                            data_frame2 = pd.DataFrame(dataset, columns=colunas)
-                            data_frame = pd.read_csv('file_output.csv',index_col=0)
-                            data_frame = pd.concat([data_frame,data_frame2])
-
-                        data_frame.to_csv('file_output.csv')
                         break
                     i+=1
                 except error.HTTPError as err:
