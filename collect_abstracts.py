@@ -44,7 +44,7 @@ for file in tqdm(files):
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
-                    print(tuple)
+                    print(dataset)
                     if(i % 200 == 0):
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         if len(data_frame) == 0:
