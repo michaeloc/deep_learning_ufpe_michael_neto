@@ -10,13 +10,14 @@ import time
 
 path = "dbpedia/treinamento/*.csv"
 files = glob.glob(path)
-dataset = []
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
+dataset_out = []
 data_frame = pd.DataFrame()
 for file in tqdm(files):
     with open(file, encoding="utf8") as f:
         reader = csv.reader(f)
         i = 1
+        dataset = []
         # time.sleep(5)
         for line in reader:
             if (line[1] != 'entity'):
@@ -44,8 +45,16 @@ for file in tqdm(files):
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
+                    dataset_out.append(tuple_)
                     if(i % 200 == 0):
-                        print(len(dataset))
+                        colunas = ['entity', 'class_target', 'other_class', 'abstract']
+                        if len(data_frame) == 0:
+                            data_frame = pd.DataFrame(dataset, columns=colunas)
+                        else:
+                            # data_frame = pd.read_csv('file_output.csv',index_col=0)
+                            data_frame2 = pd.DataFrame(dataset, columns=colunas)
+                            data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
+                        data_frame.to_csv('file_output.csv')
                         break
                     i+=1
                 except error.HTTPError as err:
@@ -61,7 +70,7 @@ for file in tqdm(files):
 
 # gerando csv de saída...
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
-df = pd.DataFrame(dataset, columns=colunas)
+df = pd.DataFrame(dataset_out, columns=colunas)
 df.to_csv('file_output.csv')
 
 
