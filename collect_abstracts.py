@@ -17,8 +17,8 @@ for file in tqdm(files):
     with open(file, encoding="utf8") as f:
         reader = csv.reader(f)
         i = 0
-        time.sleep(5)
-        for line in reader:
+        # time.sleep(5)
+        for line in tqdm(reader):
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
                 # remover virgulas do nome da entidade
