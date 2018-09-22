@@ -18,7 +18,7 @@ for file in tqdm(files):
         reader = csv.reader(f)
         i = 0
         time.sleep(5)
-        for line in tqdm(reader):
+        for line in reader:
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
                 # remover virgulas do nome da entidade
@@ -52,7 +52,7 @@ for file in tqdm(files):
                         else:
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.read_csv('file_output.csv')
-                            data_frame = np.concatenate([data_frame,data_frame2])
+                            data_frame = np.concat([data_frame,data_frame2])
 
                         data_frame.to_csv('file_output.csv')
                         break
