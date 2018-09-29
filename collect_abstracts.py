@@ -36,7 +36,7 @@ for file in tqdm(files):
                     print(label_target) 
                     break
                 
-                print('Não foi baixado ainda:{}'.format(label_target))
+                print('Não foi baixado ainda:{0}'.format(label_target))
                                
 #               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
