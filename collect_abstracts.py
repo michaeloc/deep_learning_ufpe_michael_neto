@@ -68,7 +68,7 @@ for file in tqdm(files):
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
                         data_frame.to_csv('file_output_500_example.csv')
-                        i=0
+                        break
                     i+=1
                 except error.HTTPError as err:
                     if err.code == 404:
