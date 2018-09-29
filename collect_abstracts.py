@@ -59,7 +59,7 @@ for file in tqdm(files):
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
                     dataset_out.append(tuple_)
-                    if(i % 500 == 0) or (i == len(reader)):
+                    if(i % 500 == 0) or (i == reader.line_num):
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         if len(data_frame) == 0:
                             data_frame = pd.DataFrame(dataset, columns=colunas)
