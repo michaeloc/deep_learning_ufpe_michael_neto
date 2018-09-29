@@ -24,18 +24,19 @@ for file in tqdm(files):
         i = 1
         dataset = []
         time.sleep(2)
-        
-        label_target = file[20:].replace('.csv', '')
-        if label_target in unique_class_downloaded:
-            print(label_target) 
-            break
-        print('Não foi baixado ainda:{}'.format(label_target))
+
         for line in reader:
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
                 # remover virgulas do nome da entidade
                 label_target = file[20:].replace('.csv', '')
                 labels = line[2]
+
+                if label_target in unique_class_downloaded:
+                    print(label_target) 
+                    break
+                
+                print('Não foi baixado ainda:{}'.format(label_target))
                                
 #               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
