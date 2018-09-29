@@ -32,12 +32,12 @@ for file in tqdm(files):
                 label_target = file[20:].replace('.csv', '')
                 labels = line[2]
 
-                if label_target in unique_class_downloaded:
+                # if label_target in unique_class_downloaded:
 
-                    print(label_target) 
-                    break
+                #     print(label_target) 
+                #     break
                 
-                print(label_target)
+                # print(label_target)
                                
 #               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
