@@ -7,26 +7,37 @@ from urllib import request, error
 from requests.exceptions import HTTPError
 from tqdm import tqdm
 import time
+import numpy as np
 
 path = "dbpedia/treinamento/*.csv"
 files = glob.glob(path)
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
 dataset_out = []
 data_frame = pd.DataFrame()
+
+downloaded_data = pd.read_csv('file_output.csv')
+unique_class_downloaded = np.unique(downloaded_data.class_target.values)
+print(unique_class_downloaded)
 for file in tqdm(files):
     with open(file, encoding="utf8") as f:
         reader = csv.reader(f)
         i = 1
         dataset = []
-        time.sleep(5)
+        time.sleep(2)
+        
+        label_target = file[20:].replace('.csv', '')
+        if label_target in unique_class_downloaded:
+            print(label_target) 
+            break
+        print('Não foi baixado ainda:{}'.format(label_target))
         for line in reader:
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
                 # remover virgulas do nome da entidade
                 label_target = file[20:].replace('.csv', '')
                 labels = line[2]
-
-                # consulta para recuperar o resumo
+                               
+#               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
                         " select * where" \
                         " { <http://dbpedia.org/resource/" + entity + "> dbpedia-owl:abstract ?abstract " \
@@ -54,7 +65,7 @@ for file in tqdm(files):
                             # data_frame = pd.read_csv('file_output.csv',index_col=0)
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
-                        data_frame.to_csv('file_output.csv')
+                        data_frame.to_csv('file_output2.csv')
                         break
                     i+=1
                 except error.HTTPError as err:
@@ -62,7 +73,7 @@ for file in tqdm(files):
                         print('Error entity:{0}'.format(entity))
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         df = pd.DataFrame(dataset, columns=colunas)
-                        df.to_csv('file_output.csv')
+                        df.to_csv('file_output2.csv')
                     else:
                         raise
                     
@@ -71,6 +82,6 @@ for file in tqdm(files):
 # gerando csv de saída...
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
 df = pd.DataFrame(dataset_out, columns=colunas)
-df.to_csv('file_output.csv')
+df.to_csv('file_output2.csv')
 
 
