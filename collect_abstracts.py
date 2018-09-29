@@ -15,16 +15,16 @@ colunas = ['entity', 'class_target', 'other_class', 'abstract']
 dataset_out = []
 data_frame = pd.DataFrame()
 
-downloaded_data = pd.read_csv('file_output.csv')
-unique_class_downloaded = np.unique(downloaded_data.class_target.values)
-print(unique_class_downloaded)
+# downloaded_data = pd.read_csv('file_output.csv')
+# unique_class_downloaded = np.unique(downloaded_data.class_target.values)
+# print(unique_class_downloaded)
 for file in tqdm(files):
     with open(file, encoding="utf8") as f:
         reader = csv.reader(f)
         i = 1
         dataset = []
         time.sleep(2)
-
+        
         for line in reader:
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
@@ -33,6 +33,7 @@ for file in tqdm(files):
                 labels = line[2]
 
                 if label_target in unique_class_downloaded:
+
                     print(label_target) 
                     break
                 
@@ -58,7 +59,7 @@ for file in tqdm(files):
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
                     dataset_out.append(tuple_)
-                    if(i % 200 == 0):
+                    if(i % 500 == 0) or (i == len(reader)):
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         if len(data_frame) == 0:
                             data_frame = pd.DataFrame(dataset, columns=colunas)
@@ -66,15 +67,15 @@ for file in tqdm(files):
                             # data_frame = pd.read_csv('file_output.csv',index_col=0)
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
-                        data_frame.to_csv('file_output2.csv')
-                        break
+                        data_frame.to_csv('file_output_500_example.csv')
+                        i=0
                     i+=1
                 except error.HTTPError as err:
                     if err.code == 404:
                         print('Error entity:{0}'.format(entity))
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         df = pd.DataFrame(dataset, columns=colunas)
-                        df.to_csv('file_output2.csv')
+                        df.to_csv('file_output_500_example.csv')
                     else:
                         raise
                     
@@ -83,6 +84,6 @@ for file in tqdm(files):
 # gerando csv de saída...
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
 df = pd.DataFrame(dataset_out, columns=colunas)
-df.to_csv('file_output2.csv')
+df.to_csv('file_output_500_example.csv')
 
 
