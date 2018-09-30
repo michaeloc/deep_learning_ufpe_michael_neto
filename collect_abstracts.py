@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 import glob
 import csv
 from SPARQLWrapper import SPARQLWrapper, JSON
@@ -15,9 +17,9 @@ colunas = ['entity', 'class_target', 'other_class', 'abstract']
 dataset_out = []
 data_frame = pd.DataFrame()
 
-# downloaded_data = pd.read_csv('file_output.csv')
-# unique_class_downloaded = np.unique(downloaded_data.class_target.values)
-# print(unique_class_downloaded)
+downloaded_data = pd.read_csv('file_output_1000_example.csv')
+unique_class_downloaded = np.unique(downloaded_data.class_target.values)
+print(unique_class_downloaded)
 for file in tqdm(files):
     with open(file, encoding="utf8") as f:
         reader = csv.reader(f)
@@ -32,12 +34,12 @@ for file in tqdm(files):
                 label_target = file[20:].replace('.csv', '')
                 labels = line[2]
 
-                # if label_target in unique_class_downloaded:
-
-                #     print(label_target) 
-                #     break
+                if label_target in unique_class_downloaded:
+                    print('já baixou')
+                    print(label_target) 
+                    break
                 
-                # print(label_target)
+                print(label_target)
                                
 #               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
@@ -67,7 +69,7 @@ for file in tqdm(files):
                             # data_frame = pd.read_csv('file_output.csv',index_col=0)
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
-                        data_frame.to_csv('file_output_1000_example.csv')
+                        data_frame.to_csv('file_output_1000_example2.csv')
                         break
                     i+=1
                 except error.HTTPError as err:
@@ -75,7 +77,7 @@ for file in tqdm(files):
                         print('Error entity:{0}'.format(entity))
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         df = pd.DataFrame(dataset, columns=colunas)
-                        df.to_csv('file_output_1000_example.csv')
+                        df.to_csv('file_output_1000_example2.csv')
                     else:
                         raise
                     
@@ -84,6 +86,6 @@ for file in tqdm(files):
 # gerando csv de saída...
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
 df = pd.DataFrame(dataset_out, columns=colunas)
-df.to_csv('file_output_1000_example.csv')
+df.to_csv('file_output_1000_example2.csv')
 
 
