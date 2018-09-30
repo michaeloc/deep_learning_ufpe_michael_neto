@@ -35,7 +35,7 @@ for file in tqdm(files):
                 labels = line[2]
 
                 if label_target in unique_class_downloaded:
-                    print('já baixou')
+                    print('ja baixou')
                     print(label_target) 
                     break
                 
