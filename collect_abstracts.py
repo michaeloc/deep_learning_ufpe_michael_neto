@@ -37,9 +37,10 @@ for file in tqdm(files):
                 label_target = file[20:].replace('.csv', '')
                 labels = line[2]
 
-                if (label_target in unique_class_downloaded) or 
-                    (label_target in downloaded_data2) or 
-                    (label_target in downloaded_data3) or (label_target in downloaded_data4):
+                if (label_target in unique_class_downloaded) or \
+                 (label_target in downloaded_data2) or \
+                 (label_target in downloaded_data3) or \
+                 (label_target in downloaded_data4):
                     print('ja baixou')
                     print(label_target) 
                     break
