@@ -83,6 +83,7 @@ for file in tqdm(files):
                         data_frame.to_csv('file_output_1000_example4.csv')
                         print('salvou:{0}'.format(label_target))
                         break
+                    print('i:{0}, reader.line_num:{1}'.format(i, reader.line_num))
                     i+=1
                 except error.HTTPError as err:
                     if err.code == 404:
