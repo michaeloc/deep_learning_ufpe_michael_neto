@@ -72,7 +72,7 @@ for file in tqdm(files):
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
                     dataset_out.append(tuple_)
-                    if(i % 1000 == 0) or (i == reader.line_num-1):
+                    if(reader.line_num % 10 == 0):
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         if len(data_frame) == 0:
                             data_frame = pd.DataFrame(dataset, columns=colunas)
@@ -81,10 +81,9 @@ for file in tqdm(files):
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
                         data_frame.to_csv('file_output_1000_example4.csv')
-                        print('salvou:{0}'.format(label_target))
-                        break
-                    print('i:{0}, reader.line_num:{1}'.format(i, reader.line_num))
-                    i+=1
+                        print('salvando:{0}'.format(label_target))
+                        print('Tamanho da base:{0}'.format(len(data_frame)))
+                                            
                 except error.HTTPError as err:
                     if err.code == 404:
                         print('Error entity:{0}'.format(entity))
