@@ -50,7 +50,7 @@ for file in tqdm(files):
                     print(label_target) 
                     break
                 
-                print(label_target)
+                # print(label_target)
                                
 #               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
@@ -72,7 +72,7 @@ for file in tqdm(files):
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
                     dataset_out.append(tuple_)
-                    if(i % 1000 == 0) or (i == reader.line_num):
+                    if(i % 1000 == 0) or (i == reader.line_num-1):
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         if len(data_frame) == 0:
                             data_frame = pd.DataFrame(dataset, columns=colunas)
@@ -81,6 +81,7 @@ for file in tqdm(files):
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
                         data_frame.to_csv('file_output_1000_example4.csv')
+                        print('salvou:{0}'.format(label_target))
                         break
                     i+=1
                 except error.HTTPError as err:
