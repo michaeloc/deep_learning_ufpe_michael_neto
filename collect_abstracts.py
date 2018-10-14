@@ -17,16 +17,16 @@ colunas = ['entity', 'class_target', 'other_class', 'abstract']
 dataset_out = []
 data_frame = pd.DataFrame()
 
-downloaded_data = pd.read_csv('file_output_1000_example.csv')
+# downloaded_data = pd.read_csv('file_output_1000_example.csv')
 # downloaded_data2 = pd.read_csv('file_output_1000_example2.csv')
 # downloaded_data3 = pd.read_csv('file_output_1000_example3.csv')
 # downloaded_data3 = pd.read_csv('file_output_1000_example3.csv')
-downloaded_data4 = pd.read_csv('file_output_1000_example4.csv')
+# downloaded_data4 = pd.read_csv('file_output_1000_example4.csv')
 # downloaded_data5 = pd.read_csv('file_output_1000_example5.csv')
 # downloaded_data6 = pd.read_csv('file_output_1000_example6.csv')
 # downloaded_data7 = pd.read_csv('file_output_1000_example7.csv')
-unique_class_downloaded = np.unique(downloaded_data.class_target.values)
-unique_class_downloaded4 = np.unique(downloaded_data4.class_target.values)
+# unique_class_downloaded = np.unique(downloaded_data.class_target.values)
+# unique_class_downloaded4 = np.unique(downloaded_data4.class_target.values)
 # unique_class_downloaded2 = np.unique(downloaded_data2.class_target.values)
 # unique_class_downloaded3 = np.unique(downloaded_data3.class_target.values)
 # print(unique_class_downloaded)
@@ -44,13 +44,12 @@ for file in tqdm(files):
                 label_target = file[20:].replace('.csv', '')
                 labels = line[2]
 
-                if (label_target in unique_class_downloaded) or \
-                 (label_target in unique_class_downloaded4):
-                    print('ja baixou')
-                    print(label_target) 
-                    break
+                # if (label_target in unique_class_downloaded) or \
+                #  (label_target in unique_class_downloaded4):
+                #     print('ja baixou')
+                #     print(label_target) 
+                #     break
                 
-                # print(label_target)
                                
 #               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
@@ -68,6 +67,11 @@ for file in tqdm(files):
                     for result in results["results"]["bindings"]:
                         for key, value in result.items():
                             abstract = (value['value'].replace("\n", ''))
+                    
+                    if len(abstract) == 0:
+                        break
+                    
+                    print(abstract)
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
@@ -81,6 +85,7 @@ for file in tqdm(files):
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
                         data_frame.to_csv('file_output_1000_example2.csv')
+                        dataset = []
                         print('salvando:{0}'.format(label_target))
                         print('Tamanho da base:{0}'.format(len(data_frame)))
                                             
