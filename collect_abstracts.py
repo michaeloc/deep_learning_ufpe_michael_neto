@@ -68,10 +68,10 @@ for file in tqdm(files):
                         for key, value in result.items():
                             abstract = (value['value'].replace("\n", ''))
                     
-                    if len(abstract) == 0:
-                        print('entity that abstract is 0:{0}'.format(entity))
+                    # if len(abstract) == 0:
+                    #     print('entity that abstract is 0:{0}'.format(entity))
                     
-                    print('Tamanho do asbtract:{0}'.format(len(abstract)))
+                    # print('Tamanho do asbtract:{0}'.format(len(abstract)))
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
@@ -86,7 +86,7 @@ for file in tqdm(files):
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
                         data_frame.to_csv('file_output_1000_example1.csv')
                         dataset = []
-                        print('salvando:{0}'.format(label_target))
+                        # print('salvando:{0}'.format(label_target))
                         print('Tamanho da base:{0}'.format(len(data_frame)))
                                             
                 except error.HTTPError as err:
