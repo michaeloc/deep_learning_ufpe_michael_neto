@@ -69,7 +69,7 @@ for file in tqdm(files):
                             abstract = (value['value'].replace("\n", ''))
                     
                     if len(abstract) == 0:
-                        break
+                        print('entity that abstract is 0:{0}'.format(entity))
                     
                     print('Tamanho do asbtract:{0}'.format(len(abstract)))
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
