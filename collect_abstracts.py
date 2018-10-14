@@ -36,7 +36,7 @@ for file in tqdm(files):
         i = 1
         dataset = []
         time.sleep(1)
-        
+  
         for line in reader:
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
