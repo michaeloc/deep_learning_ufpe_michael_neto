@@ -35,8 +35,8 @@ for file in tqdm(files):
         reader = csv.reader(f)
         i = 1
         dataset = []
-        time.sleep(2)
-        print(reader)
+        time.sleep(1)
+  
         for line in reader:
             if (line[1] != 'entity'):
                 entity = line[1].replace('DBPEDIA_ID/', '')
@@ -71,7 +71,7 @@ for file in tqdm(files):
                     if len(abstract) == 0:
                         break
                     
-                    print(abstract)
+                    print('Tamanho do asbtract:{0}'.format(len(abstract)))
                     # exibir a tupla no formato "entidade, label_alvo, labels, resumo"
                     tuple_ = [entity, label_target, labels, abstract]
                     dataset.append(tuple_)
@@ -84,7 +84,7 @@ for file in tqdm(files):
                             # data_frame = pd.read_csv('file_output.csv',index_col=0)
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
-                        data_frame.to_csv('file_output_1000_example2.csv')
+                        data_frame.to_csv('file_output_1000_example1.csv')
                         dataset = []
                         print('salvando:{0}'.format(label_target))
                         print('Tamanho da base:{0}'.format(len(data_frame)))
@@ -94,7 +94,7 @@ for file in tqdm(files):
                         print('Error entity:{0}'.format(entity))
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         df = pd.DataFrame(dataset, columns=colunas)
-                        df.to_csv('file_output_1000_example2.csv')
+                        df.to_csv('file_output_1000_example1.csv')
                     else:
                         raise
                     
@@ -103,6 +103,6 @@ for file in tqdm(files):
 # gerando csv de saída...
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
 df = pd.DataFrame(dataset_out, columns=colunas)
-df.to_csv('file_output_1000_example2.csv')
+df.to_csv('file_output_1000_example1.csv')
 
 
