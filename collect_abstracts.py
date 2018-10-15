@@ -19,7 +19,7 @@ data_frame = pd.DataFrame()
 
 downloaded_data1 = pd.read_csv('file_output_1000_example1.csv')
 downloaded_data2 = pd.read_csv('file_output_1000_example2.csv')
-# downloaded_data3 = pd.read_csv('file_output_1000_example3.csv')
+downloaded_data3 = pd.read_csv('file_output_1000_example3.csv')
 # downloaded_data3 = pd.read_csv('file_output_1000_example3.csv')
 # downloaded_data4 = pd.read_csv('file_output_1000_example4.csv')
 # downloaded_data5 = pd.read_csv('file_output_1000_example5.csv')
@@ -28,7 +28,7 @@ downloaded_data2 = pd.read_csv('file_output_1000_example2.csv')
 unique_class_downloaded1 = np.unique(downloaded_data1.class_target.values)
 # unique_class_downloaded4 = np.unique(downloaded_data4.class_target.values)
 unique_class_downloaded2 = np.unique(downloaded_data2.class_target.values)
-# unique_class_downloaded3 = np.unique(downloaded_data3.class_target.values)
+unique_class_downloaded3 = np.unique(downloaded_data3.class_target.values)
 # print(unique_class_downloaded)
 for file in tqdm(files):
     with open(file, encoding="utf8") as f:
@@ -45,8 +45,8 @@ for file in tqdm(files):
                 labels = line[2]
 
                 if (label_target in unique_class_downloaded1) or \
-                    (label_target in unique_class_downloaded2):
-                #  (label_target in unique_class_downloaded4):
+                    (label_target in unique_class_downloaded2) or\
+                    (label_target in unique_class_downloaded3):
                     print('ja baixou')
                     print(label_target) 
                     break
@@ -85,7 +85,7 @@ for file in tqdm(files):
                             # data_frame = pd.read_csv('file_output.csv',index_col=0)
                             data_frame2 = pd.DataFrame(dataset, columns=colunas)
                             data_frame = pd.concat([data_frame,data_frame2],ignore_index=True)
-                        data_frame.to_csv('file_output_1000_example3.csv')
+                        data_frame.to_csv('file_output_1000_example4.csv')
                         dataset = []
                         # print('salvando:{0}'.format(label_target))
                         print('Tamanho da base:{0}'.format(len(data_frame)))
@@ -95,7 +95,7 @@ for file in tqdm(files):
                         print('Error entity:{0}'.format(entity))
                         colunas = ['entity', 'class_target', 'other_class', 'abstract']
                         df = pd.DataFrame(dataset, columns=colunas)
-                        df.to_csv('file_output_1000_example3.csv')
+                        df.to_csv('file_output_1000_example4.csv')
                     else:
                         raise
                     
@@ -104,6 +104,6 @@ for file in tqdm(files):
 # gerando csv de saída...
 colunas = ['entity', 'class_target', 'other_class', 'abstract']
 df = pd.DataFrame(dataset_out, columns=colunas)
-df.to_csv('file_output_1000_example3.csv')
+df.to_csv('file_output_1000_example4.csv')
 
 
