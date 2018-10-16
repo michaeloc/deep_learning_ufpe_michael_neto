@@ -51,7 +51,7 @@ for file in tqdm(files):
                     print(label_target) 
                     break
                 
-                print(entity)
+                print(entity.encode('utf-8'))
 #               consulta para recuperar o resumo
                 query = "PREFIX dbpedia-owl: <http://dbpedia.org/ontology/> " \
                         " select * where" \
